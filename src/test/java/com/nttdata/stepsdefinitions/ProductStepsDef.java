@@ -1,5 +1,6 @@
 package com.nttdata.stepsdefinitions;
 
+import com.nttdata.page.StorePage;
 import com.nttdata.steps.LoginSteps;
 import com.nttdata.steps.StoreSteps;
 import io.cucumber.java.PendingException;
@@ -15,6 +16,8 @@ import static com.nttdata.core.DriverManager.screenShot;
 
 public class ProductStepsDef {
     private WebDriver driver;
+    private StoreSteps storeSteps;
+    private LoginSteps loginSteps;
 
     @Dado("estoy en la página de la tienda")
     public void estoyEnLaPáginaDeLaTienda() {
@@ -25,9 +28,9 @@ public class ProductStepsDef {
 
     @Y("me logueo con mi usuario {string} y clave {string}")
     public void meLogueoConMiUsuarioYClave(String email, String password) {
-        StoreSteps storeSteps = new StoreSteps(driver);
+        storeSteps = new StoreSteps(driver);
         storeSteps.openLoginPage();
-        LoginSteps loginSteps = new LoginSteps(driver);
+        loginSteps = new LoginSteps(driver);
         loginSteps.typeEmail(email);
         loginSteps.typePassword(password);
         loginSteps.login();
@@ -37,9 +40,9 @@ public class ProductStepsDef {
     }
 
     @Cuando("navego a la categoria {string} y subcategoria {string}")
-    public void navegoALaCategoriaYSubcategoria(String arg0, String arg1) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void navegoALaCategoriaYSubcategoria(String category, String subcategory) {
+        storeSteps = new StoreSteps(driver);
+        storeSteps.goToSubCategory(category, subcategory);
     }
 
     @Y("agrego {int} unidades del primer producto al carrito")
