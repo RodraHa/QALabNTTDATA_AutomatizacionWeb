@@ -14,6 +14,12 @@ Característica: : Product - Store
     Y vuelvo a validar el calculo de precios en el carrito
 
     Ejemplos:
-      | username                | password       | category        | subcategory |
-      | rodrigo.haro@epn.edu.ec | rodrigo2003@   | Clothes         | Men         |
+      | username                | password       | category        | subcategory        |
+      | rodrigo.haro@epn.edu.ec | rodrigo2003@   | Clothes         | Men                |
       | rodrigo.haro@epn.edu.ec | rodrigo2003@   | Accesorios      | Stationery         |
+      # Credenciales invalidas
+      | test@gmail.com          | admin1234567   | Clothes         | Men                |
+      # Categoria inexistente
+      | rodrigo.haro@epn.edu.ec | rodrigo2003@   | Autos           | Camionetas         |
+
+
