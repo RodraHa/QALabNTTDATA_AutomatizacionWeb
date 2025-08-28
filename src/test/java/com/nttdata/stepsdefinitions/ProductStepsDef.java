@@ -90,7 +90,12 @@ public class ProductStepsDef {
 
     @Y("vuelvo a validar el calculo de precios en el carrito")
     public void vuelvoAValidarElCalculoDePreciosEnElCarrito() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        double price = cartSteps.getProductPrice();
+        int quantity = cartSteps.getProductQuantity();
+        double expectedTotal = price * quantity;
+        double actualTotal = cartSteps.getTotalProduct();
+        double cartTotal = cartSteps.getTotalCart();
+        Assertions.assertEquals(expectedTotal, actualTotal, 0.01);
+        Assertions.assertEquals(expectedTotal, cartTotal, 0.01);
     }
 }

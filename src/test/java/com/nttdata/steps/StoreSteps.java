@@ -32,8 +32,8 @@ public class StoreSteps {
         clothesSubs.put("Men", StorePage.menSub);
         clothesSubs.put("Women", StorePage.womenSub);
         Map<String, By> accesoriosSubs = new HashMap<>();
-        clothesSubs.put("Stationery", StorePage.stationerySub);
-        clothesSubs.put("Home Accessories", StorePage.homeSub);
+        accesoriosSubs.put("Stationery", StorePage.stationerySub);
+        accesoriosSubs.put("Home Accessories", StorePage.homeSub);
 
         subCategoriesMap.put("Clothes", clothesSubs);
         subCategoriesMap.put("Accesorios", accesoriosSubs);
@@ -61,7 +61,6 @@ public class StoreSteps {
         if (!categoriesMap.containsKey(category)) {
             throw new IllegalArgumentException("Categoría desconocida: " + category);
         }
-
         if (!subCategoriesMap.get(category).containsKey(subCategory)) {
             throw new IllegalArgumentException(
                     "Subcategoría desconocida: " + subCategory + " para la categoría " + category

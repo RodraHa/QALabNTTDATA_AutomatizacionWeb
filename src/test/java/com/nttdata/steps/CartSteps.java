@@ -20,4 +20,40 @@ public class CartSteps {
         WebElement title = wait.until(ExpectedConditions.visibilityOfElementLocated(CartPage.cartTitle));
         return title.getText();
     }
+
+    public double getProductPrice() {
+        WebElement priceElement = wait.until(ExpectedConditions.visibilityOfElementLocated(CartPage.unitPrice));
+        String priceText = priceElement.getText();
+
+        priceText = priceText.replaceAll("[^0-9,]", "").replace(",", ".");
+
+        return Double.parseDouble(priceText);
+    }
+
+    public int getProductQuantity() {
+        WebElement quantityInput = wait.until(ExpectedConditions.visibilityOfElementLocated(CartPage.quantityInput));
+        String quantityText = quantityInput.getAttribute("value");
+
+        quantityText = quantityText.replaceAll("[^0-9,]", "").replace(",", ".");
+
+        return Integer.parseInt(quantityText);
+    }
+
+    public double getTotalProduct() {
+        WebElement totalElement = wait.until(ExpectedConditions.visibilityOfElementLocated(CartPage.productTotal));
+        String totalText = totalElement.getText();
+
+        totalText = totalText.replaceAll("[^0-9,]", "").replace(",", ".");
+
+        return Double.parseDouble(totalText);
+    }
+
+    public double getTotalCart() {
+        WebElement totalElement = wait.until(ExpectedConditions.visibilityOfElementLocated(CartPage.cartTotal));
+        String totalText = totalElement.getText();
+
+        totalText = totalText.replaceAll("[^0-9,]", "").replace(",", ".");
+
+        return Double.parseDouble(totalText);
+    }
 }
