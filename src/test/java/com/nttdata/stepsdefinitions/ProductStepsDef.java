@@ -2,7 +2,9 @@ package com.nttdata.stepsdefinitions;
 
 import com.nttdata.page.StorePage;
 import com.nttdata.steps.LoginSteps;
+import com.nttdata.steps.ProductSteps;
 import com.nttdata.steps.StoreSteps;
+import com.nttdata.steps.SubCategorySteps;
 import io.cucumber.java.PendingException;
 import io.cucumber.java.es.Cuando;
 import io.cucumber.java.es.Dado;
@@ -17,7 +19,6 @@ import static com.nttdata.core.DriverManager.screenShot;
 public class ProductStepsDef {
     private WebDriver driver;
     private StoreSteps storeSteps;
-    private LoginSteps loginSteps;
 
     @Dado("estoy en la página de la tienda")
     public void estoyEnLaPáginaDeLaTienda() {
@@ -30,7 +31,7 @@ public class ProductStepsDef {
     public void meLogueoConMiUsuarioYClave(String email, String password) {
         storeSteps = new StoreSteps(driver);
         storeSteps.openLoginPage();
-        loginSteps = new LoginSteps(driver);
+        LoginSteps loginSteps = new LoginSteps(driver);
         loginSteps.typeEmail(email);
         loginSteps.typePassword(password);
         loginSteps.login();
@@ -43,18 +44,26 @@ public class ProductStepsDef {
     public void navegoALaCategoriaYSubcategoria(String category, String subcategory) {
         storeSteps = new StoreSteps(driver);
         storeSteps.goToSubCategory(category, subcategory);
+        screenShot();
     }
 
     @Y("agrego {int} unidades del primer producto al carrito")
-    public void agregoUnidadesDelPrimerProductoAlCarrito(int arg0) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void agregoUnidadesDelPrimerProductoAlCarrito(int quantity) {
+        SubCategorySteps subCategorySteps = new SubCategorySteps(driver);
+        subCategorySteps.clickFirstItem();
+        screenShot();
+        ProductSteps productSteps = new ProductSteps(driver);
+        productSteps.typeQuantity(quantity);
+        productSteps.addToCart();
+        screenShot();
     }
 
     @Entonces("valido en el popup la confirmación del producto agregado")
     public void validoEnElPopupLaConfirmaciónDelProductoAgregado() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        ProductSteps productSteps = new ProductSteps(driver);
+        String text = productSteps.getProductAddedToCartMessage();
+        Assertions.assertFalse(text.isEmpty());
+        screenShot();
     }
 
     @Y("valido en el popup que el monto total sea calculado correctamente")
