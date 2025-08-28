@@ -19,6 +19,7 @@ import static com.nttdata.core.DriverManager.screenShot;
 public class ProductStepsDef {
     private WebDriver driver;
     private StoreSteps storeSteps;
+    private ProductSteps productSteps;
 
     @Dado("estoy en la página de la tienda")
     public void estoyEnLaPáginaDeLaTienda() {
@@ -52,7 +53,7 @@ public class ProductStepsDef {
         SubCategorySteps subCategorySteps = new SubCategorySteps(driver);
         subCategorySteps.clickFirstItem();
         screenShot();
-        ProductSteps productSteps = new ProductSteps(driver);
+        productSteps = new ProductSteps(driver);
         productSteps.typeQuantity(quantity);
         productSteps.addToCart();
         screenShot();
@@ -60,7 +61,7 @@ public class ProductStepsDef {
 
     @Entonces("valido en el popup la confirmación del producto agregado")
     public void validoEnElPopupLaConfirmaciónDelProductoAgregado() {
-        ProductSteps productSteps = new ProductSteps(driver);
+        productSteps = new ProductSteps(driver);
         String text = productSteps.getProductAddedToCartMessage();
         Assertions.assertFalse(text.isEmpty());
         screenShot();
@@ -68,8 +69,11 @@ public class ProductStepsDef {
 
     @Y("valido en el popup que el monto total sea calculado correctamente")
     public void validoEnElPopupQueElMontoTotalSeaCalculadoCorrectamente() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        double price = productSteps.getProductPrice();
+        int quantity = productSteps.getProductQuantity();
+        double expectedTotal = price * quantity;
+        double actualSubtotal = productSteps.getSubtotal();
+        Assertions.assertEquals(expectedTotal, actualSubtotal, 0.01);
     }
 
     @Cuando("finalizo la compra")

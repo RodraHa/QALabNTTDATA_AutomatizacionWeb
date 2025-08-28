@@ -37,4 +37,29 @@ public class ProductSteps {
 
         return modalLabel.getText();
     }
+
+    public double getProductPrice() {
+        WebElement priceElement = wait.until(ExpectedConditions.visibilityOfElementLocated(ProductPage.productPrice));
+        String priceText = priceElement.getText();
+
+        priceText = priceText.replaceAll("[^0-9,]", "").replace(",", ".");
+
+        return Double.parseDouble(priceText);
+    }
+
+    public int getProductQuantity() {
+        WebElement quantityElement = wait.until(ExpectedConditions.visibilityOfElementLocated(ProductPage.productQuantity));
+        String quantityText = quantityElement.getText();
+
+        return Integer.parseInt(quantityText);
+    }
+
+    public double getSubtotal() {
+        WebElement subtotalElement = wait.until(ExpectedConditions.visibilityOfElementLocated(ProductPage.subtotal));
+        String subtotalText = subtotalElement.getText();
+
+        subtotalText = subtotalText.replaceAll("[^0-9,]", "").replace(",", ".");
+
+        return Double.parseDouble(subtotalText);
+    }
 }
