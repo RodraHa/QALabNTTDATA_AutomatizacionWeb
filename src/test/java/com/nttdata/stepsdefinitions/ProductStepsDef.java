@@ -1,10 +1,7 @@
 package com.nttdata.stepsdefinitions;
 
 import com.nttdata.page.StorePage;
-import com.nttdata.steps.LoginSteps;
-import com.nttdata.steps.ProductSteps;
-import com.nttdata.steps.StoreSteps;
-import com.nttdata.steps.SubCategorySteps;
+import com.nttdata.steps.*;
 import io.cucumber.java.PendingException;
 import io.cucumber.java.es.Cuando;
 import io.cucumber.java.es.Dado;
@@ -20,6 +17,7 @@ public class ProductStepsDef {
     private WebDriver driver;
     private StoreSteps storeSteps;
     private ProductSteps productSteps;
+    private CartSteps cartSteps;
 
     @Dado("estoy en la página de la tienda")
     public void estoyEnLaPáginaDeLaTienda() {
@@ -78,14 +76,16 @@ public class ProductStepsDef {
 
     @Cuando("finalizo la compra")
     public void finalizoLaCompra() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        productSteps.finishPurchase();
+        screenShot();
     }
 
     @Entonces("valido el titulo de la pagina del carrito")
     public void validoElTituloDeLaPaginaDelCarrito() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        cartSteps = new CartSteps(driver);
+        String title = cartSteps.getCartTitle();
+        Assertions.assertEquals("CARRITO", title);
+        screenShot();
     }
 
     @Y("vuelvo a validar el calculo de precios en el carrito")

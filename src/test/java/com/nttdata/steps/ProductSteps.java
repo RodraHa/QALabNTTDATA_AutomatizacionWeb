@@ -62,4 +62,9 @@ public class ProductSteps {
 
         return Double.parseDouble(subtotalText);
     }
+
+    public void finishPurchase() {
+        WebElement finishPurchaseBtn = wait.until(ExpectedConditions.elementToBeClickable(ProductPage.finishButton));
+        finishPurchaseBtn.click();
+    }
 }

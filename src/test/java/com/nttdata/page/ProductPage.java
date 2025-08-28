@@ -9,4 +9,5 @@ public class ProductPage {
     public static By productPrice = By.cssSelector("p.product-price");
     public static By productQuantity = By.cssSelector("span.product-quantity strong");
     public static By subtotal = By.cssSelector("span.subtotal.value");
+    public static By finishButton = By.xpath("/html/body/div[1]/div/div/div[2]/div/div[2]/div/div/a");
 }
